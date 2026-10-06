@@ -32,7 +32,7 @@ plt.figure(figsize=(8, 5))
 for pen in penalties:
     subset = [e for e in data if e["penalty"] == pen]
     subset.sort(key=lambda x: x["p"])
-    plt.plot([e["p"] for e in subset], [e["p_best"] for e in subset], marker='o', linewidth=2, label=f"Penalty M = {pen}")
+    plt.plot([e["p"] for e in subset], [e.get("p_best", e.get("P(best)")) for e in subset], marker='o', linewidth=2, label=f"Penalty M = {pen}")
 
 plt.axhline(y=1/48, color='gray', linestyle='--', label="Random baseline (1/48 ≈ 0.021)")
 plt.title("Optimal State Probability P(best) vs Depth (p)", fontsize=13, fontweight='bold')
@@ -49,7 +49,7 @@ plt.figure(figsize=(8, 5))
 for pen in penalties:
     subset = [e for e in data if e["penalty"] == pen]
     subset.sort(key=lambda x: x["p"])
-    plt.plot([e["p"] for e in subset], [e["p_feasible"] for e in subset], marker='s', linewidth=2, label=f"Penalty M = {pen}")
+    plt.plot([e["p"] for e in subset], [e.get("p_feasible", e.get("P(feas)")) for e in subset], marker='s', linewidth=2, label=f"Penalty M = {pen}")
 
 plt.title("Feasible Solution Rate P(feasible) vs Depth (p)", fontsize=13, fontweight='bold')
 plt.xlabel("QAOA Depth (p)", fontsize=11)
