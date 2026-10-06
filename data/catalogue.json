@@ -1,1 +1,225 @@
-{"materials": ["M0","M1","M2","M3"], "nanostructures": ["N0","N1","N2","N3"], "passivations": ["none","coatingA","coatingB"]}
+{
+  "meta": {
+    "project": "QNanoVolt",
+    "scenario": "Single-junction solar cell under standard sunlight (ASTM G173 AM1.5G, 1000 W/m2, 25 C)",
+    "status_legend": {
+      "measured": "a number reported in the cited source",
+      "geometry": "follows from the shape alone, no data needed",
+      "calibration": "a fit parameter, set so the model reproduces a cited benchmark",
+      "estimate": "our own assumption, not taken from a source; say so on the slide. Each one is varied in the sensitivity check"
+    },
+    "cost_unit": "USD per m2 of module, on the basis of NREL's 2020 minimum sustainable price (MSP). Not current market prices.",
+    "inspiration": "Irvin et al., Solar RRL 10, e70360 (2026) inspired the project. No design, value or geometry in this file is taken from it."
+  },
+
+  "bit_layout": {
+    "order": "material(2 bits) | geometry(2 bits) | passivation(2 bits), most significant bit first",
+    "n_qubits": 6,
+    "n_designs": 64,
+    "example": "'000111' = material 00 (c-Si), geometry 01 (micro-pyramids), passivation 11 (Al2O3)"
+  },
+
+  "constants": {
+    "temperature_K": {"value": 298.15, "status": "measured", "source": "standard test conditions, 25 C"},
+    "service_life_years": {"value": 25, "status": "estimate", "source": "typical module warranty period"},
+    "spectrum": {"value": "data/am15g.csv", "status": "measured", "source": "ASTM G173-03 global tilt spectrum, 280-4000 nm, 2002 points, integrates to 1000.37 W/m2 (copied from the pvlib package data)"}
+  },
+
+  "materials": [
+    {
+      "id": 0, "bits": "00", "name": "c-Si",
+      "values": {
+        "bandgap_eV": 1.12, "thickness_um": 160, "absorption": "table",
+        "tau_bulk_s": 1.0e-3, "D_cm2_per_s": 30,
+        "S_bare_cm_per_s": 1.0e5, "S_best_cm_per_s": 3,
+        "degradation_pct_per_year": 0.5, "max_process_temp_C": 1100,
+        "record_efficiency": 0.2781, "reference_geometry": 1,
+        "base_cost_usd_m2": 47.9
+      },
+      "sources": {
+        "bandgap_eV": "measured: 1.12 eV ('Efficiency Limits in Photovoltaics: Case of Single Junction Solar Cells', Facta Universitatis Ser. Electron. Energ., Table 1)",
+        "thickness_um": "measured: 160 um wafers on the industry roadmap (NREL/TP-7A40-78173, Sec. 3.1.2; 180 um was standard in 2020)",
+        "absorption": "measured: Green & Keevers, Prog. Photovolt. 3, 189 (1995), tabulated at pveducation.org; see silicon_absorption below",
+        "tau_bulk_s": "estimate: 1 ms. Kotipalli et al. measured 3.8 ms on float-zone wafers; solar-grade Cz wafers are lower",
+        "D_cm2_per_s": "estimate: minority-electron diffusivity in p-type Si, about 30 cm2/s",
+        "S_bare_cm_per_s": "measured: about 1e5 cm/s for bare low-resistivity Si (Maeckel & Cuevas, Proc. 3rd WCPEC, 71, 2003). It falls with resistivity, so this is the pessimistic end",
+        "S_best_cm_per_s": "measured: 3 cm/s with plasma-ALD Al2O3 (Kotipalli et al., EPJ Photovolt. 4, 45107, 2013, Table 3)",
+        "degradation_pct_per_year": "measured: median 0.5 %/year over about 2000 field rates (Jordan & Kurtz, Prog. Photovolt. 21, 12, 2013)",
+        "max_process_temp_C": "measured: thermal oxide is grown on Si at 1050 C (Kotipalli 2013)",
+        "record_efficiency": "measured: 27.81 % (LONGi back-contact cell, Solar Cell Efficiency Tables v66, reported by pv magazine 2026)",
+        "reference_geometry": "the record cell is pyramid-textured and fully passivated, so the model is calibrated on pyramids + Al2O3",
+        "base_cost_usd_m2": "calibration: NREL MSP of 0.25 USD/W x 200 W/m2 (400 W on a 72-cell module of about 2 m2) = 50 USD/m2 for a pyramid-textured, Al2O3-passivated PERC module. Minus the 0.6 and 1.5 USD/m2 step costs below, so that c-Si / pyramids / Al2O3 comes out at 50"
+      }
+    },
+    {
+      "id": 1, "bits": "01", "name": "CdTe",
+      "values": {
+        "bandgap_eV": 1.45, "thickness_um": 2.0, "absorption": "direct", "alpha0_relative_to_CdTe": 1.0,
+        "tau_bulk_s": 5.0e-8, "D_cm2_per_s": 5,
+        "S_bare_cm_per_s": 1.0e5, "S_best_cm_per_s": 1.0e4,
+        "degradation_pct_per_year": 0.5, "max_process_temp_C": 400,
+        "record_efficiency": 0.231, "reference_geometry": 0,
+        "base_cost_usd_m2": 48.7
+      },
+      "sources": {
+        "bandgap_eV": "estimate: textbook value for CdTe, 1.45 eV",
+        "thickness_um": "estimate: 2 um. 1 um of CdTe already absorbs more than 92 % (EPFL thin-film PV lecture notes)",
+        "absorption": "calibration: direct-gap law alpha = alpha0 * sqrt(E - Eg), with alpha0 set so 1 um of CdTe absorbs 92 % of the above-gap photons in one pass",
+        "tau_bulk_s": "estimate: 50 ns. Upper bound is 360 ns measured in single-crystal CdTe (IEEE J. Photovolt. 5, 366, 2015; NREL/JA-5J00-62303)",
+        "D_cm2_per_s": "estimate",
+        "S_bare_cm_per_s": "measured: untreated CdTe exceeds 1e5 cm/s (IEEE J. Photovolt. 5, 382, 2015)",
+        "S_best_cm_per_s": "measured: reduced by an order of magnitude to about 1e4 cm/s (IEEE J. Photovolt. 5, 366, 2015)",
+        "degradation_pct_per_year": "measured: 0.5 %/year warranted for First Solar Series 6 (NREL/TP-7A40-78173, Sec. 3.2)",
+        "max_process_temp_C": "estimate: tolerates a 300 C deposition, not a 1050 C furnace",
+        "record_efficiency": "measured: 23.1 % (First Solar; EPFL lecture notes)",
+        "reference_geometry": "record thin-film cells are planar",
+        "base_cost_usd_m2": "measured: NREL MSP of 0.28 USD/W x 174 W/m2 (430 W on 2.47 m2) = 48.7 USD/m2"
+      }
+    },
+    {
+      "id": 2, "bits": "10", "name": "CIGS",
+      "values": {
+        "bandgap_eV": 1.14, "thickness_um": 1.5, "absorption": "direct", "alpha0_relative_to_CdTe": 1.0,
+        "tau_bulk_s": 2.5e-7, "D_cm2_per_s": 2.5,
+        "S_bare_cm_per_s": 1.0e5, "S_best_cm_per_s": 1.0e3,
+        "degradation_pct_per_year": 0.75, "max_process_temp_C": 400,
+        "record_efficiency": 0.2364, "reference_geometry": 0,
+        "base_cost_usd_m2": 76.8
+      },
+      "sources": {
+        "bandgap_eV": "measured: 1.14 eV (arXiv:1904.06033, Table II)",
+        "thickness_um": "measured: 1.5 um absorber in NREL's CIGS cost model (NREL/TP-7A40-78173, Table 6)",
+        "absorption": "estimate: same direct-gap alpha0 as calibrated for CdTe",
+        "tau_bulk_s": "measured: 250 ns bulk lifetime in a double-graded absorber (Weiss et al., Sci. Technol. Adv. Mater. 20, 313, 2019)",
+        "D_cm2_per_s": "estimate",
+        "S_bare_cm_per_s": "estimate: taken equal to untreated CdTe",
+        "S_best_cm_per_s": "estimate",
+        "degradation_pct_per_year": "estimate: between the low CIGS rates in recent studies and the roughly 1 %/year typical of thin films (Jordan et al., 'Compendium of photovoltaic degradation rates', Prog. Photovolt. 2016)",
+        "max_process_temp_C": "estimate: tolerates a 300 C deposition, not a 1050 C furnace",
+        "record_efficiency": "measured: 23.64 % certified by Fraunhofer ISE (Uppsala University / First Solar European Technology Center, 2024)",
+        "reference_geometry": "record thin-film cells are planar",
+        "base_cost_usd_m2": "measured: NREL MSP of 0.48 USD/W x 160 W/m2 (16 % module) = 76.8 USD/m2"
+      }
+    },
+    {
+      "id": 3, "bits": "11", "name": "Perovskite",
+      "values": {
+        "bandgap_eV": 1.55, "thickness_um": 0.5, "absorption": "direct", "alpha0_relative_to_CdTe": 2.5,
+        "tau_bulk_s": 5.0e-7, "D_cm2_per_s": 0.5,
+        "S_bare_cm_per_s": 1.0e4, "S_best_cm_per_s": 1.0e2,
+        "degradation_pct_per_year": 3.0, "max_process_temp_C": 100,
+        "record_efficiency": 0.280, "reference_geometry": 0,
+        "base_cost_usd_m2": 60.8
+      },
+      "sources": {
+        "bandgap_eV": "measured: 1.5-1.6 eV for methylammonium lead iodide (NREL/TP-7A40-78173, Sec. 4.2)",
+        "thickness_um": "measured: 200-500 nm layers absorb across the visible (NREL/TP-7A40-78173, Sec. 4.2)",
+        "absorption": "estimate: direct-gap law with alpha0 2.5 times the CdTe value, so that a 0.5 um film absorbs about as much as 1 um of CdTe. Consistent with 200-500 nm layers absorbing across the visible (NREL/TP-7A40-78173)",
+        "tau_bulk_s": "estimate",
+        "D_cm2_per_s": "estimate: chosen with tau_bulk to give a diffusion length in the um range, as NREL/TP-7A40-78173 reports",
+        "S_bare_cm_per_s": "estimate",
+        "S_best_cm_per_s": "estimate",
+        "degradation_pct_per_year": "estimate: 3 %/year. No 25-year field data exists. Published outdoor results run from 2.83 % lost over three years (Nanoscale Adv. 2025, doi:10.1039/d5na00622h) to 22 % lost in the first year (imec, 2025)",
+        "max_process_temp_C": "measured: Al2O3 ALD at 125 C significantly degrades MAPbI3; 75 C is best (Nanoscale Adv. 2021, doi:10.1039/d1na00075f)",
+        "record_efficiency": "measured: 28.0 % on a 0.05 cm2 cell (Solar Cell Efficiency Tables v68). Modules reach only 19.3-22.1 %",
+        "reference_geometry": "record thin-film cells are planar",
+        "base_cost_usd_m2": "measured: NREL MSP estimate of 0.38 USD/W x 160 W/m2 (16 % module) = 60.8 USD/m2, at small production scale"
+      }
+    }
+  ],
+
+  "geometries": [
+    {
+      "id": 0, "bits": "00", "name": "Flat + double-layer ARC",
+      "values": {"reflectance": 0.0367, "path_enhancement": 2, "area_factor": 1.0, "cost_usd_m2": 0.5},
+      "sources": {
+        "reflectance": "measured: 3.67 % AM1.5G-weighted for an optimised planar two-layer coating ('Front side antireflection concepts for silicon solar cells with diffractive rear side structures', Fraunhofer ISE, 2014)",
+        "path_enhancement": "geometry: two passes with a rear mirror",
+        "area_factor": "geometry",
+        "cost_usd_m2": "estimate: one extra dielectric layer"
+      }
+    },
+    {
+      "id": 1, "bits": "01", "name": "Micro-pyramids",
+      "values": {"reflectance": 0.018, "path_enhancement": 20, "area_factor": 1.732, "cost_usd_m2": 0.6},
+      "sources": {
+        "reflectance": "measured: 1.8 % weighted average for random pyramids with a SiNx coating (Nawabjan et al., TELKOMNIKA 16(4))",
+        "path_enhancement": "estimate: 20, below the 4n^2 (about 50) Lambertian limit",
+        "area_factor": "geometry: 54.7 degree facets give 1/cos(54.7) = sqrt(3)",
+        "cost_usd_m2": "estimate: wet alkaline etch. NREL puts the whole PERC cell conversion at 0.049 USD/W, about 11 USD/m2"
+      }
+    },
+    {
+      "id": 2, "bits": "10", "name": "Nanowire array",
+      "values": {"reflectance": 0.0121, "path_enhancement": 73, "area_factor": 21.0, "cost_usd_m2": 4.0},
+      "sources": {
+        "reflectance": "measured: 1.21 % weighted for needle-like black silicon ('Front side antireflection concepts for silicon solar cells with diffractive rear side structures', Fraunhofer ISE, 2014), applied here to both sub-wavelength textures",
+        "path_enhancement": "measured: up to 73 (Garnett & Yang, 'Light Trapping in Silicon Nanowire Solar Cells', Nano Lett., 2010). This is their best case",
+        "area_factor": "measured: nanowires 4 um tall and 400 nm wide have 2000 % more area than a flat surface (Jeong, McGehee & Cui, Nat. Commun. 4, 2950, 2013)",
+        "cost_usd_m2": "estimate: masking plus a deep etch"
+      }
+    },
+    {
+      "id": 3, "bits": "11", "name": "Nanocone array",
+      "values": {"reflectance": 0.0121, "path_enhancement": 25, "area_factor": 1.67, "cost_usd_m2": 3.0},
+      "sources": {
+        "reflectance": "measured: 1.21 % weighted for black silicon ('Front side antireflection concepts for silicon solar cells with diffractive rear side structures', Fraunhofer ISE, 2014), applied here to both sub-wavelength textures",
+        "path_enhancement": "estimate: 25, about the 2n^2 limit",
+        "area_factor": "measured: cones 400 nm tall on a 450 nm base have only 67 % more area than a flat surface (Jeong, McGehee & Cui 2013)",
+        "cost_usd_m2": "estimate: masking plus a shallow etch"
+      }
+    }
+  ],
+
+  "passivations": [
+    {
+      "id": 0, "bits": "00", "name": "None",
+      "values": {"S_on_cSi_cm_per_s": 1.0e5, "process_temp_C": 25, "conformality": [1.0, 1.0, 1.0, 1.0], "cost_usd_m2": 0.0},
+      "sources": {
+        "S_on_cSi_cm_per_s": "measured: bare low-resistivity Si (Maeckel & Cuevas 2003)",
+        "cost_usd_m2": "no extra step"
+      }
+    },
+    {
+      "id": 1, "bits": "01", "name": "Thermal SiO2",
+      "values": {"S_on_cSi_cm_per_s": 31, "process_temp_C": 1050, "conformality": [1.0, 1.0, 1.0, 1.0], "cost_usd_m2": 2.5},
+      "sources": {
+        "S_on_cSi_cm_per_s": "measured: 31 cm/s (Kotipalli et al. 2013, Table 3)",
+        "process_temp_C": "measured: grown at 1050 C (Kotipalli et al. 2013)",
+        "conformality": "geometry: the oxide grows out of the silicon itself, so it follows any shape",
+        "cost_usd_m2": "estimate: a high-temperature furnace step, which Kotipalli et al. note raises processing cost"
+      }
+    },
+    {
+      "id": 2, "bits": "10", "name": "SiNx:H (PECVD)",
+      "values": {"S_on_cSi_cm_per_s": 178, "process_temp_C": 300, "conformality": [1.0, 1.0, 0.7, 0.95], "cost_usd_m2": 1.0},
+      "sources": {
+        "S_on_cSi_cm_per_s": "measured: 178 cm/s (Kotipalli et al. 2013, Table 3)",
+        "process_temp_C": "measured: deposited at 300 C (Kotipalli et al. 2013)",
+        "conformality": "estimate: fraction of the textured surface actually coated, in geometry order. PECVD is directional: full coverage on flat and pyramids (the industry standard), 95 % on shallow cones, 70 % on 4 um wires",
+        "cost_usd_m2": "estimate: one PECVD step"
+      }
+    },
+    {
+      "id": 3, "bits": "11", "name": "Al2O3 (ALD)",
+      "values": {"S_on_cSi_cm_per_s": 3, "process_temp_C": 75, "conformality": [1.0, 1.0, 1.0, 1.0], "cost_usd_m2": 1.5},
+      "sources": {
+        "S_on_cSi_cm_per_s": "measured: 3 cm/s for plasma ALD, 17 cm/s for thermal ALD (Kotipalli et al. 2013, Table 3)",
+        "process_temp_C": "measured: ALD runs at 250 C on Si (Kotipalli 2013) and down to 75 C on perovskite (Nanoscale Adv. 2021). The model uses the lowest available temperature",
+        "conformality": "measured: a conformal ALD alumina film solved surface recombination on black silicon (Savin et al., Nat. Nanotechnol. 2015, doi:10.1038/nnano.2015.89; below 7 cm/s in von Gastrow et al., Sol. Energy Mater. Sol. Cells)",
+        "cost_usd_m2": "estimate: one ALD step"
+      }
+    }
+  ],
+
+  "direct_gap_absorption": {
+    "calibration_target": {"material": "CdTe", "thickness_um": 1.0, "single_pass_absorbed_fraction": 0.92},
+    "source": "calibration: 1 um of CdTe absorbs more than 92 % (EPFL thin-film PV lecture notes)"
+  },
+
+  "silicon_absorption": {
+    "source": "measured: Green & Keevers, Prog. Photovolt. 3, 189 (1995), every 50 nm from the table at pveducation.org; interpolated log-linearly",
+    "wavelength_nm": [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150],
+    "alpha_per_cm": [1.73e6, 1.04e6, 9.52e4, 2.55e4, 1.11e4, 6.39e3, 4.14e3, 2.81e3, 1.90e3, 1.30e3, 8.50e2, 5.35e2, 3.06e2, 1.57e2, 6.40e1, 1.63e1, 3.5, 0.68]
+  }
+}

@@ -1,258 +1,875 @@
 {
- "000000": {
-  "feasible": true,
-  "score": 0.6394
- },
- "000001": {
-  "feasible": true,
-  "score": 0.025
- },
- "000010": {
-  "feasible": true,
-  "score": 0.275
- },
- "000011": {
-  "feasible": false,
-  "score": 0.2232
- },
- "000100": {
-  "feasible": true,
-  "score": 0.7365
- },
- "000101": {
-  "feasible": true,
-  "score": 0.6767
- },
- "000110": {
-  "feasible": true,
-  "score": 0.8922
- },
- "000111": {
-  "feasible": false,
-  "score": 0.0869
- },
- "001000": {
-  "feasible": true,
-  "score": 0.4219
- },
- "001001": {
-  "feasible": true,
-  "score": 0.0298
- },
- "001010": {
-  "feasible": true,
-  "score": 0.2186
- },
- "001011": {
-  "feasible": false,
-  "score": 0.5054
- },
- "001100": {
-  "feasible": true,
-  "score": 0.0265
- },
- "001101": {
-  "feasible": true,
-  "score": 0.1988
- },
- "001110": {
-  "feasible": true,
-  "score": 0.6499
- },
- "001111": {
-  "feasible": false,
-  "score": 0.5449
- },
- "010000": {
-  "feasible": true,
-  "score": 0.2204
- },
- "010001": {
-  "feasible": true,
-  "score": 0.5893
- },
- "010010": {
-  "feasible": true,
-  "score": 0.8094
- },
- "010011": {
-  "feasible": false,
-  "score": 0.0065
- },
- "010100": {
-  "feasible": true,
-  "score": 0.8058
- },
- "010101": {
-  "feasible": true,
-  "score": 0.6981
- },
- "010110": {
-  "feasible": true,
-  "score": 0.3403
- },
- "010111": {
-  "feasible": false,
-  "score": 0.1555
- },
- "011000": {
-  "feasible": true,
-  "score": 0.9572
- },
- "011001": {
-  "feasible": true,
-  "score": 0.3366
- },
- "011010": {
-  "feasible": true,
-  "score": 0.0927
- },
- "011011": {
-  "feasible": false,
-  "score": 0.0967
- },
- "011100": {
-  "feasible": true,
-  "score": 0.8475
- },
- "011101": {
-  "feasible": true,
-  "score": 0.6037
- },
- "011110": {
-  "feasible": true,
-  "score": 0.8071
- },
- "011111": {
-  "feasible": false,
-  "score": 0.7297
- },
- "100000": {
-  "feasible": true,
-  "score": 0.5362
- },
- "100001": {
-  "feasible": true,
-  "score": 0.9731
- },
- "100010": {
-  "feasible": true,
-  "score": 0.3785
- },
- "100011": {
-  "feasible": false,
-  "score": 0.552
- },
- "100100": {
-  "feasible": true,
-  "score": 0.8294
- },
- "100101": {
-  "feasible": true,
-  "score": 0.6185
- },
- "100110": {
-  "feasible": true,
-  "score": 0.8617
- },
- "100111": {
-  "feasible": false,
-  "score": 0.5774
- },
- "101000": {
-  "feasible": true,
-  "score": 0.7046
- },
- "101001": {
-  "feasible": true,
-  "score": 0.0458
- },
- "101010": {
-  "feasible": true,
-  "score": 0.2279
- },
- "101011": {
-  "feasible": false,
-  "score": 0.2894
- },
- "101100": {
-  "feasible": true,
-  "score": 0.0798
- },
- "101101": {
-  "feasible": true,
-  "score": 0.2328
- },
- "101110": {
-  "feasible": true,
-  "score": 0.101
- },
- "101111": {
-  "feasible": false,
-  "score": 0.278
- },
- "110000": {
-  "feasible": true,
-  "score": 0.6357
- },
- "110001": {
-  "feasible": true,
-  "score": 0.3648
- },
- "110010": {
-  "feasible": true,
-  "score": 0.3702
- },
- "110011": {
-  "feasible": false,
-  "score": 0.2095
- },
- "110100": {
-  "feasible": true,
-  "score": 0.267
- },
- "110101": {
-  "feasible": true,
-  "score": 0.9367
- },
- "110110": {
-  "feasible": true,
-  "score": 0.648
- },
- "110111": {
-  "feasible": false,
-  "score": 0.6091
- },
- "111000": {
-  "feasible": true,
-  "score": 0.1711
- },
- "111001": {
-  "feasible": true,
-  "score": 0.7291
- },
- "111010": {
-  "feasible": true,
-  "score": 0.1634
- },
- "111011": {
-  "feasible": false,
-  "score": 0.3795
- },
- "111100": {
-  "feasible": true,
-  "score": 0.9895
- },
- "111101": {
-  "feasible": true,
-  "score": 0.64
- },
- "111110": {
-  "feasible": true,
-  "score": 0.5569
- },
- "111111": {
-  "feasible": false,
-  "score": 0.6846
- }
+  "meta": {
+    "units": {
+      "efficiency": "fraction (0-1) of sunlight converted to electricity, averaged over a 25-year service life",
+      "efficiency_initial": "fraction (0-1) on day one, before degradation",
+      "cost": "USD per m2 of module, NREL 2020 minimum-sustainable-price basis; not market prices",
+      "eff_norm / cost_norm": "min-max normalised to [0,1] over the 64 designs",
+      "feasible": "false when the passivation step is hotter than the absorber survives; efficiency is then 0"
+    },
+    "bit_layout": {
+      "order": "material(2 bits) | geometry(2 bits) | passivation(2 bits), most significant bit first",
+      "n_qubits": 6,
+      "n_designs": 64,
+      "example": "'000111' = material 00 (c-Si), geometry 01 (micro-pyramids), passivation 11 (Al2O3)"
+    },
+    "spectrum": "ASTM G173-03 AM1.5G, 1000 W/m2, 25 C",
+    "normalisation": {
+      "eff_min": 0.0,
+      "eff_max": 0.263198,
+      "cost_min": 48.4,
+      "cost_max": 83.3
+    },
+    "generated_by": "src/physics.py (deterministic, no randomness)"
+  },
+  "designs": {
+    "000000": {
+      "material": "c-Si",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "None",
+      "efficiency": 0.117442,
+      "cost": 48.4,
+      "feasible": true,
+      "efficiency_initial": 0.124954,
+      "Voc_V": 0.646951,
+      "Jsc_mA_cm2": 23.0703,
+      "eff_norm": 0.446212,
+      "cost_norm": 0.0
+    },
+    "000001": {
+      "material": "c-Si",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.241869,
+      "cost": 50.9,
+      "feasible": true,
+      "efficiency_initial": 0.25734,
+      "Voc_V": 0.777134,
+      "Jsc_mA_cm2": 38.6026,
+      "eff_norm": 0.918962,
+      "cost_norm": 0.071633
+    },
+    "000010": {
+      "material": "c-Si",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.223696,
+      "cost": 49.4,
+      "feasible": true,
+      "efficiency_initial": 0.238004,
+      "Voc_V": 0.740861,
+      "Jsc_mA_cm2": 37.6762,
+      "eff_norm": 0.849915,
+      "cost_norm": 0.028653
+    },
+    "000011": {
+      "material": "c-Si",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.251245,
+      "cost": 49.9,
+      "feasible": true,
+      "efficiency_initial": 0.267315,
+      "Voc_V": 0.80042,
+      "Jsc_mA_cm2": 38.7923,
+      "eff_norm": 0.954586,
+      "cost_norm": 0.04298
+    },
+    "000100": {
+      "material": "c-Si",
+      "geometry": "Micro-pyramids",
+      "passivation": "None",
+      "efficiency": 0.120225,
+      "cost": 48.5,
+      "feasible": true,
+      "efficiency_initial": 0.127916,
+      "Voc_V": 0.613335,
+      "Jsc_mA_cm2": 25.1053,
+      "eff_norm": 0.456785,
+      "cost_norm": 0.002865
+    },
+    "000101": {
+      "material": "c-Si",
+      "geometry": "Micro-pyramids",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.247537,
+      "cost": 51.0,
+      "feasible": true,
+      "efficiency_initial": 0.263371,
+      "Voc_V": 0.734068,
+      "Jsc_mA_cm2": 42.1276,
+      "eff_norm": 0.940497,
+      "cost_norm": 0.074499
+    },
+    "000110": {
+      "material": "c-Si",
+      "geometry": "Micro-pyramids",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.223492,
+      "cost": 49.5,
+      "feasible": true,
+      "efficiency_initial": 0.237788,
+      "Voc_V": 0.694879,
+      "Jsc_mA_cm2": 40.4723,
+      "eff_norm": 0.84914,
+      "cost_norm": 0.031519
+    },
+    "000111": {
+      "material": "c-Si",
+      "geometry": "Micro-pyramids",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.261381,
+      "cost": 50.0,
+      "feasible": true,
+      "efficiency_initial": 0.2781,
+      "Voc_V": 0.764644,
+      "Jsc_mA_cm2": 42.4837,
+      "eff_norm": 0.993096,
+      "cost_norm": 0.045845
+    },
+    "001000": {
+      "material": "c-Si",
+      "geometry": "Nanowire array",
+      "passivation": "None",
+      "efficiency": 0.119592,
+      "cost": 51.9,
+      "feasible": true,
+      "efficiency_initial": 0.127242,
+      "Voc_V": 0.607192,
+      "Jsc_mA_cm2": 25.2634,
+      "eff_norm": 0.45438,
+      "cost_norm": 0.100287
+    },
+    "001001": {
+      "material": "c-Si",
+      "geometry": "Nanowire array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.208647,
+      "cost": 54.4,
+      "feasible": true,
+      "efficiency_initial": 0.221993,
+      "Voc_V": 0.671617,
+      "Jsc_mA_cm2": 39.2748,
+      "eff_norm": 0.792738,
+      "cost_norm": 0.17192
+    },
+    "001010": {
+      "material": "c-Si",
+      "geometry": "Nanowire array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.119853,
+      "cost": 52.9,
+      "feasible": true,
+      "efficiency_initial": 0.127519,
+      "Voc_V": 0.60737,
+      "Jsc_mA_cm2": 25.3101,
+      "eff_norm": 0.455372,
+      "cost_norm": 0.12894
+    },
+    "001011": {
+      "material": "c-Si",
+      "geometry": "Nanowire array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.247597,
+      "cost": 53.4,
+      "feasible": true,
+      "efficiency_initial": 0.263435,
+      "Voc_V": 0.725555,
+      "Jsc_mA_cm2": 42.6967,
+      "eff_norm": 0.940725,
+      "cost_norm": 0.143266
+    },
+    "001100": {
+      "material": "c-Si",
+      "geometry": "Nanocone array",
+      "passivation": "None",
+      "efficiency": 0.120987,
+      "cost": 50.9,
+      "feasible": true,
+      "efficiency_initial": 0.128726,
+      "Voc_V": 0.611726,
+      "Jsc_mA_cm2": 25.3406,
+      "eff_norm": 0.459681,
+      "cost_norm": 0.071633
+    },
+    "001101": {
+      "material": "c-Si",
+      "geometry": "Nanocone array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.249497,
+      "cost": 53.4,
+      "feasible": true,
+      "efficiency_initial": 0.265456,
+      "Voc_V": 0.733143,
+      "Jsc_mA_cm2": 42.5216,
+      "eff_norm": 0.947944,
+      "cost_norm": 0.143266
+    },
+    "001110": {
+      "material": "c-Si",
+      "geometry": "Nanocone array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.141602,
+      "cost": 51.9,
+      "feasible": true,
+      "efficiency_initial": 0.15066,
+      "Voc_V": 0.625396,
+      "Jsc_mA_cm2": 28.916,
+      "eff_norm": 0.538006,
+      "cost_norm": 0.100287
+    },
+    "001111": {
+      "material": "c-Si",
+      "geometry": "Nanocone array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.263198,
+      "cost": 52.4,
+      "feasible": true,
+      "efficiency_initial": 0.280034,
+      "Voc_V": 0.763229,
+      "Jsc_mA_cm2": 42.8684,
+      "eff_norm": 1.0,
+      "cost_norm": 0.114613
+    },
+    "010000": {
+      "material": "CdTe",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "None",
+      "efficiency": 0.1607,
+      "cost": 49.2,
+      "feasible": true,
+      "efficiency_initial": 0.170979,
+      "Voc_V": 0.9901,
+      "Jsc_mA_cm2": 19.5892,
+      "eff_norm": 0.610567,
+      "cost_norm": 0.022923
+    },
+    "010001": {
+      "material": "CdTe",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 51.7,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CdTe tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.094556
+    },
+    "010010": {
+      "material": "CdTe",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.194879,
+      "cost": 50.2,
+      "feasible": true,
+      "efficiency_initial": 0.207344,
+      "Voc_V": 1.011601,
+      "Jsc_mA_cm2": 23.2,
+      "eff_norm": 0.740427,
+      "cost_norm": 0.051576
+    },
+    "010011": {
+      "material": "CdTe",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.217112,
+      "cost": 50.7,
+      "feasible": true,
+      "efficiency_initial": 0.231,
+      "Voc_V": 1.027789,
+      "Jsc_mA_cm2": 25.3994,
+      "eff_norm": 0.8249,
+      "cost_norm": 0.065903
+    },
+    "010100": {
+      "material": "CdTe",
+      "geometry": "Micro-pyramids",
+      "passivation": "None",
+      "efficiency": 0.155083,
+      "cost": 49.3,
+      "feasible": true,
+      "efficiency_initial": 0.165003,
+      "Voc_V": 0.980883,
+      "Jsc_mA_cm2": 19.1005,
+      "eff_norm": 0.589226,
+      "cost_norm": 0.025788
+    },
+    "010101": {
+      "material": "CdTe",
+      "geometry": "Micro-pyramids",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 51.8,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CdTe tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.097421
+    },
+    "010110": {
+      "material": "CdTe",
+      "geometry": "Micro-pyramids",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.184114,
+      "cost": 50.3,
+      "feasible": true,
+      "efficiency_initial": 0.19589,
+      "Voc_V": 0.998311,
+      "Jsc_mA_cm2": 22.2399,
+      "eff_norm": 0.699527,
+      "cost_norm": 0.054441
+    },
+    "010111": {
+      "material": "CdTe",
+      "geometry": "Micro-pyramids",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.20865,
+      "cost": 50.8,
+      "feasible": true,
+      "efficiency_initial": 0.221996,
+      "Voc_V": 1.014232,
+      "Jsc_mA_cm2": 24.7685,
+      "eff_norm": 0.792749,
+      "cost_norm": 0.068768
+    },
+    "011000": {
+      "material": "CdTe",
+      "geometry": "Nanowire array",
+      "passivation": "None",
+      "efficiency": 0.141218,
+      "cost": 52.7,
+      "feasible": true,
+      "efficiency_initial": 0.150251,
+      "Voc_V": 0.971814,
+      "Jsc_mA_cm2": 17.572,
+      "eff_norm": 0.536547,
+      "cost_norm": 0.123209
+    },
+    "011001": {
+      "material": "CdTe",
+      "geometry": "Nanowire array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 55.2,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CdTe tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.194842
+    },
+    "011010": {
+      "material": "CdTe",
+      "geometry": "Nanowire array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.142915,
+      "cost": 53.7,
+      "feasible": true,
+      "efficiency_initial": 0.152056,
+      "Voc_V": 0.972845,
+      "Jsc_mA_cm2": 17.7623,
+      "eff_norm": 0.542994,
+      "cost_norm": 0.151862
+    },
+    "011011": {
+      "material": "CdTe",
+      "geometry": "Nanowire array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.153519,
+      "cost": 54.2,
+      "feasible": true,
+      "efficiency_initial": 0.163339,
+      "Voc_V": 0.979208,
+      "Jsc_mA_cm2": 18.9435,
+      "eff_norm": 0.583283,
+      "cost_norm": 0.166189
+    },
+    "011100": {
+      "material": "CdTe",
+      "geometry": "Nanocone array",
+      "passivation": "None",
+      "efficiency": 0.15653,
+      "cost": 51.7,
+      "feasible": true,
+      "efficiency_initial": 0.166543,
+      "Voc_V": 0.98111,
+      "Jsc_mA_cm2": 19.2738,
+      "eff_norm": 0.594723,
+      "cost_norm": 0.094556
+    },
+    "011101": {
+      "material": "CdTe",
+      "geometry": "Nanocone array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 54.2,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CdTe tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.166189
+    },
+    "011110": {
+      "material": "CdTe",
+      "geometry": "Nanocone array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.182424,
+      "cost": 52.7,
+      "feasible": true,
+      "efficiency_initial": 0.194093,
+      "Voc_V": 0.99653,
+      "Jsc_mA_cm2": 22.0793,
+      "eff_norm": 0.693106,
+      "cost_norm": 0.123209
+    },
+    "011111": {
+      "material": "CdTe",
+      "geometry": "Nanocone array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.21086,
+      "cost": 53.2,
+      "feasible": true,
+      "efficiency_initial": 0.224348,
+      "Voc_V": 1.014817,
+      "Jsc_mA_cm2": 25.0149,
+      "eff_norm": 0.801146,
+      "cost_norm": 0.137536
+    },
+    "100000": {
+      "material": "CIGS",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "None",
+      "efficiency": 0.124901,
+      "cost": 77.3,
+      "feasible": true,
+      "efficiency_initial": 0.137023,
+      "Voc_V": 0.617409,
+      "Jsc_mA_cm2": 26.6891,
+      "eff_norm": 0.474551,
+      "cost_norm": 0.82808
+    },
+    "100001": {
+      "material": "CIGS",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 79.8,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CIGS tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.899713
+    },
+    "100010": {
+      "material": "CIGS",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.187737,
+      "cost": 78.3,
+      "feasible": true,
+      "efficiency_initial": 0.205957,
+      "Voc_V": 0.667164,
+      "Jsc_mA_cm2": 36.7147,
+      "eff_norm": 0.713292,
+      "cost_norm": 0.856734
+    },
+    "100011": {
+      "material": "CIGS",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.215486,
+      "cost": 78.8,
+      "feasible": true,
+      "efficiency_initial": 0.2364,
+      "Voc_V": 0.703085,
+      "Jsc_mA_cm2": 39.7039,
+      "eff_norm": 0.818722,
+      "cost_norm": 0.87106
+    },
+    "100100": {
+      "material": "CIGS",
+      "geometry": "Micro-pyramids",
+      "passivation": "None",
+      "efficiency": 0.121153,
+      "cost": 77.4,
+      "feasible": true,
+      "efficiency_initial": 0.132911,
+      "Voc_V": 0.60811,
+      "Jsc_mA_cm2": 26.3433,
+      "eff_norm": 0.460311,
+      "cost_norm": 0.830946
+    },
+    "100101": {
+      "material": "CIGS",
+      "geometry": "Micro-pyramids",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 79.9,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CIGS tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.902579
+    },
+    "100110": {
+      "material": "CIGS",
+      "geometry": "Micro-pyramids",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.178285,
+      "cost": 78.4,
+      "feasible": true,
+      "efficiency_initial": 0.195588,
+      "Voc_V": 0.650128,
+      "Jsc_mA_cm2": 35.9101,
+      "eff_norm": 0.67738,
+      "cost_norm": 0.859599
+    },
+    "100111": {
+      "material": "CIGS",
+      "geometry": "Micro-pyramids",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.213791,
+      "cost": 78.9,
+      "feasible": true,
+      "efficiency_initial": 0.23454,
+      "Voc_V": 0.688559,
+      "Jsc_mA_cm2": 40.3357,
+      "eff_norm": 0.812282,
+      "cost_norm": 0.873926
+    },
+    "101000": {
+      "material": "CIGS",
+      "geometry": "Nanowire array",
+      "passivation": "None",
+      "efficiency": 0.112614,
+      "cost": 80.8,
+      "feasible": true,
+      "efficiency_initial": 0.123544,
+      "Voc_V": 0.601482,
+      "Jsc_mA_cm2": 24.7973,
+      "eff_norm": 0.427868,
+      "cost_norm": 0.928367
+    },
+    "101001": {
+      "material": "CIGS",
+      "geometry": "Nanowire array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 83.3,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CIGS tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 1.0
+    },
+    "101010": {
+      "material": "CIGS",
+      "geometry": "Nanowire array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.114344,
+      "cost": 81.8,
+      "feasible": true,
+      "efficiency_initial": 0.125441,
+      "Voc_V": 0.602729,
+      "Jsc_mA_cm2": 25.1182,
+      "eff_norm": 0.434441,
+      "cost_norm": 0.95702
+    },
+    "101011": {
+      "material": "CIGS",
+      "geometry": "Nanowire array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.160979,
+      "cost": 82.3,
+      "feasible": true,
+      "efficiency_initial": 0.176603,
+      "Voc_V": 0.635693,
+      "Jsc_mA_cm2": 33.2673,
+      "eff_norm": 0.611627,
+      "cost_norm": 0.971347
+    },
+    "101100": {
+      "material": "CIGS",
+      "geometry": "Nanocone array",
+      "passivation": "None",
+      "efficiency": 0.122219,
+      "cost": 79.8,
+      "feasible": true,
+      "efficiency_initial": 0.13408,
+      "Voc_V": 0.608334,
+      "Jsc_mA_cm2": 26.5639,
+      "eff_norm": 0.464361,
+      "cost_norm": 0.899713
+    },
+    "101101": {
+      "material": "CIGS",
+      "geometry": "Nanocone array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 82.3,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; CIGS tolerates 400 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.971347
+    },
+    "101110": {
+      "material": "CIGS",
+      "geometry": "Nanocone array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.165096,
+      "cost": 80.8,
+      "feasible": true,
+      "efficiency_initial": 0.181119,
+      "Voc_V": 0.63878,
+      "Jsc_mA_cm2": 33.9295,
+      "eff_norm": 0.627269,
+      "cost_norm": 0.928367
+    },
+    "101111": {
+      "material": "CIGS",
+      "geometry": "Nanocone array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.215549,
+      "cost": 81.3,
+      "feasible": true,
+      "efficiency_initial": 0.236468,
+      "Voc_V": 0.689229,
+      "Jsc_mA_cm2": 40.6224,
+      "eff_norm": 0.818961,
+      "cost_norm": 0.942693
+    },
+    "110000": {
+      "material": "Perovskite",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "None",
+      "efficiency": 0.146468,
+      "cost": 61.3,
+      "feasible": true,
+      "efficiency_initial": 0.209244,
+      "Voc_V": 1.116179,
+      "Jsc_mA_cm2": 21.0176,
+      "eff_norm": 0.556494,
+      "cost_norm": 0.369628
+    },
+    "110001": {
+      "material": "Perovskite",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 63.8,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.441261
+    },
+    "110010": {
+      "material": "Perovskite",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.0,
+      "cost": 62.3,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "SiNx:H (PECVD) needs 300 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.398281
+    },
+    "110011": {
+      "material": "Perovskite",
+      "geometry": "Flat + double-layer ARC",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.195996,
+      "cost": 62.8,
+      "feasible": true,
+      "efficiency_initial": 0.28,
+      "Voc_V": 1.2135,
+      "Jsc_mA_cm2": 25.6748,
+      "eff_norm": 0.744671,
+      "cost_norm": 0.412607
+    },
+    "110100": {
+      "material": "Perovskite",
+      "geometry": "Micro-pyramids",
+      "passivation": "None",
+      "efficiency": 0.138756,
+      "cost": 61.4,
+      "feasible": true,
+      "efficiency_initial": 0.198227,
+      "Voc_V": 1.099397,
+      "Jsc_mA_cm2": 20.2437,
+      "eff_norm": 0.527192,
+      "cost_norm": 0.372493
+    },
+    "110101": {
+      "material": "Perovskite",
+      "geometry": "Micro-pyramids",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 63.9,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.444126
+    },
+    "110110": {
+      "material": "Perovskite",
+      "geometry": "Micro-pyramids",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.0,
+      "cost": 62.4,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "SiNx:H (PECVD) needs 300 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.401146
+    },
+    "110111": {
+      "material": "Perovskite",
+      "geometry": "Micro-pyramids",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.199823,
+      "cost": 62.9,
+      "feasible": true,
+      "efficiency_initial": 0.285468,
+      "Voc_V": 1.199632,
+      "Jsc_mA_cm2": 26.5055,
+      "eff_norm": 0.759212,
+      "cost_norm": 0.415473
+    },
+    "111000": {
+      "material": "Perovskite",
+      "geometry": "Nanowire array",
+      "passivation": "None",
+      "efficiency": 0.109011,
+      "cost": 64.8,
+      "feasible": true,
+      "efficiency_initial": 0.155734,
+      "Voc_V": 1.073928,
+      "Jsc_mA_cm2": 16.3177,
+      "eff_norm": 0.414179,
+      "cost_norm": 0.469914
+    },
+    "111001": {
+      "material": "Perovskite",
+      "geometry": "Nanowire array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 67.3,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.541547
+    },
+    "111010": {
+      "material": "Perovskite",
+      "geometry": "Nanowire array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.0,
+      "cost": 65.8,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "SiNx:H (PECVD) needs 300 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.498567
+    },
+    "111011": {
+      "material": "Perovskite",
+      "geometry": "Nanowire array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.180959,
+      "cost": 66.3,
+      "feasible": true,
+      "efficiency_initial": 0.258518,
+      "Voc_V": 1.14648,
+      "Jsc_mA_cm2": 25.2183,
+      "eff_norm": 0.687539,
+      "cost_norm": 0.512894
+    },
+    "111100": {
+      "material": "Perovskite",
+      "geometry": "Nanocone array",
+      "passivation": "None",
+      "efficiency": 0.140362,
+      "cost": 63.8,
+      "feasible": true,
+      "efficiency_initial": 0.200522,
+      "Voc_V": 1.100063,
+      "Jsc_mA_cm2": 20.4645,
+      "eff_norm": 0.533294,
+      "cost_norm": 0.441261
+    },
+    "111101": {
+      "material": "Perovskite",
+      "geometry": "Nanocone array",
+      "passivation": "Thermal SiO2",
+      "efficiency": 0.0,
+      "cost": 66.3,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "Thermal SiO2 needs 1050 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.512894
+    },
+    "111110": {
+      "material": "Perovskite",
+      "geometry": "Nanocone array",
+      "passivation": "SiNx:H (PECVD)",
+      "efficiency": 0.0,
+      "cost": 64.8,
+      "feasible": false,
+      "efficiency_initial": 0.0,
+      "Voc_V": 0.0,
+      "Jsc_mA_cm2": 0.0,
+      "infeasible_reason": "SiNx:H (PECVD) needs 300 C; Perovskite tolerates 100 C",
+      "eff_norm": 0.0,
+      "cost_norm": 0.469914
+    },
+    "111111": {
+      "material": "Perovskite",
+      "geometry": "Nanocone array",
+      "passivation": "Al2O3 (ALD)",
+      "efficiency": 0.201173,
+      "cost": 65.3,
+      "feasible": true,
+      "efficiency_initial": 0.287395,
+      "Voc_V": 1.200215,
+      "Jsc_mA_cm2": 26.6704,
+      "eff_norm": 0.764341,
+      "cost_norm": 0.484241
+    }
+  }
 }
