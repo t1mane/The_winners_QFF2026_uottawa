@@ -1,2 +1,3 @@
-# The_winners_QFF2026_uottawa
-QFF 2026 winners repository for University of Ottawa
+# Quantum Radiophotovoltaic Converter Benchmark
+
+QAOA design-selection benchmark. Team sections below.
