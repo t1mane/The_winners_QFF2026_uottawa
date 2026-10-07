@@ -134,14 +134,14 @@ def _reconstruct_diagonal(energy):
     for mask in range(size):
         total = 0.0
         for state in range(size):
-            parity = (mask & state).bit_count() & 1
+            parity = bin(mask & state).count("1") & 1
             total += energy[state] * (1 - 2 * parity)
         coefficients.append(total / size)
     diagonal = []
     for state in range(size):
         total = 0.0
         for mask in range(size):
-            parity = (mask & state).bit_count() & 1
+            parity = bin(mask & state).count("1") & 1
             total += coefficients[mask] * (1 - 2 * parity)
         diagonal.append(total)
     return diagonal
