@@ -1,0 +1,71 @@
+{
+  "description": "Timing of a linear scan over a diagonal objective. The synthetic rows plant one feasible optimum and are not a physical model. The frozen six-qubit catalogue is the exact reference used by the study.",
+  "synthetic": [
+    {
+      "n_qubits": 6,
+      "n_states": 64,
+      "median_seconds": 2.700020559132099e-06,
+      "min_seconds": 2.399901859462261e-06,
+      "planted_index": 21,
+      "found_index": 21
+    },
+    {
+      "n_qubits": 8,
+      "n_states": 256,
+      "median_seconds": 8.899951353669167e-06,
+      "min_seconds": 8.70006624609232e-06,
+      "planted_index": 85,
+      "found_index": 85
+    },
+    {
+      "n_qubits": 10,
+      "n_states": 1024,
+      "median_seconds": 3.7899939343333244e-05,
+      "min_seconds": 3.760005347430706e-05,
+      "planted_index": 341,
+      "found_index": 341
+    },
+    {
+      "n_qubits": 12,
+      "n_states": 4096,
+      "median_seconds": 0.000152299995534122,
+      "min_seconds": 0.0001501000951975584,
+      "planted_index": 1365,
+      "found_index": 1365
+    },
+    {
+      "n_qubits": 14,
+      "n_states": 16384,
+      "median_seconds": 0.000588499940931797,
+      "min_seconds": 0.0005846000276505947,
+      "planted_index": 5461,
+      "found_index": 5461
+    },
+    {
+      "n_qubits": 16,
+      "n_states": 65536,
+      "median_seconds": 0.0023680999875068665,
+      "min_seconds": 0.00235730002168566,
+      "planted_index": 21845,
+      "found_index": 21845
+    },
+    {
+      "n_qubits": 18,
+      "n_states": 262144,
+      "median_seconds": 0.010187100037001073,
+      "min_seconds": 0.009686799952760339,
+      "planted_index": 87381,
+      "found_index": 87381
+    }
+  ],
+  "frozen_catalogue": {
+    "n_qubits": 6,
+    "n_states": 64,
+    "n_feasible": 15,
+    "best_bitstring": "000111",
+    "median_seconds": 7.889990229159594e-05,
+    "min_seconds": 7.830001413822174e-05,
+    "n_queries": 64,
+    "budget_usd_m2": 51.0
+  }
+}
