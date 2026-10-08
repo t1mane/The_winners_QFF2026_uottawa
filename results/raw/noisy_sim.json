@@ -1,0 +1,458 @@
+[
+  {
+    "environment": "backend_derived_noisy_simulator",
+    "backend": "ibm_quebec",
+    "transpiler_seed": 42,
+    "simulator_seed": 2037,
+    "reproducibility": {
+      "timestamp_utc": "2026-10-08T00:55:05.933460+00:00",
+      "git_commit": "822d52ae70a83877b03b4832c57e7cf565dcc725",
+      "git_dirty": false,
+      "python_version": "3.12.6",
+      "qiskit_version": "2.5.2",
+      "qiskit_aer_version": "0.17.2",
+      "qiskit_ibm_runtime_version": "0.50.0"
+    },
+    "seed": 11,
+    "p": 1,
+    "penalty": 2.0,
+    "budget": 51.0,
+    "gammas": [
+      0.6757388016099228
+    ],
+    "betas": [
+      2.7178504928758938
+    ],
+    "max_pauli_weight": null,
+    "requested_shots": 2048,
+    "returned_shots": 2048,
+    "resources": {
+      "compiled_depth": 830,
+      "num_qubits": 156,
+      "operation_counts": {
+        "sx": 510,
+        "rz": 447,
+        "cz": 287,
+        "measure": 6,
+        "barrier": 1
+      },
+      "two_qubit_gate_counts": {
+        "cz": 287
+      },
+      "native_two_qubit_gates": 287
+    },
+    "counts": {
+      "100000": 15,
+      "000111": 120,
+      "110000": 16,
+      "111000": 28,
+      "110011": 22,
+      "101101": 6,
+      "000100": 77,
+      "010111": 63,
+      "110100": 28,
+      "101100": 33,
+      "000011": 124,
+      "010010": 72,
+      "000001": 40,
+      "110110": 13,
+      "101010": 31,
+      "010011": 45,
+      "100011": 20,
+      "001100": 46,
+      "111101": 15,
+      "010001": 30,
+      "100111": 17,
+      "110101": 26,
+      "101011": 38,
+      "000010": 89,
+      "001000": 23,
+      "101001": 15,
+      "010100": 45,
+      "010110": 65,
+      "110010": 17,
+      "101110": 35,
+      "000101": 48,
+      "101000": 27,
+      "111011": 42,
+      "001110": 18,
+      "100101": 12,
+      "111001": 13,
+      "001101": 26,
+      "100100": 13,
+      "111100": 31,
+      "110001": 17,
+      "101111": 35,
+      "000110": 88,
+      "010000": 50,
+      "100110": 16,
+      "001111": 27,
+      "111010": 16,
+      "011100": 25,
+      "010101": 29,
+      "111110": 17,
+      "100010": 12,
+      "001011": 26,
+      "110111": 23,
+      "000000": 57,
+      "001010": 9,
+      "111111": 47,
+      "100001": 6,
+      "001001": 21,
+      "011110": 15,
+      "011111": 17,
+      "011000": 9,
+      "011010": 12,
+      "011001": 6,
+      "011011": 22,
+      "011101": 2
+    },
+    "metrics": {
+      "best_design": "000111",
+      "p_best": 0.05859375,
+      "p_feasible": 0.50244140625,
+      "p_top3": 0.142578125,
+      "mean_score_given_feasible": 0.5958238936803696,
+      "random_p_best": 0.06666666666666667,
+      "uniform_p_best": 0.015625,
+      "lift_vs_random_feasible": 0.87890625,
+      "best_label": "c-Si / Micro-pyramids / Al2O3 (ALD)"
+    },
+    "top_designs": [
+      [
+        "000011",
+        "c-Si / Flat + double-layer ARC / Al2O3 (ALD)",
+        124,
+        true
+      ],
+      [
+        "000111",
+        "c-Si / Micro-pyramids / Al2O3 (ALD)",
+        120,
+        true
+      ],
+      [
+        "000010",
+        "c-Si / Flat + double-layer ARC / SiNx:H (PECVD)",
+        89,
+        true
+      ],
+      [
+        "000110",
+        "c-Si / Micro-pyramids / SiNx:H (PECVD)",
+        88,
+        true
+      ],
+      [
+        "000100",
+        "c-Si / Micro-pyramids / None",
+        77,
+        true
+      ]
+    ]
+  },
+  {
+    "environment": "backend_derived_noisy_simulator",
+    "backend": "ibm_quebec",
+    "transpiler_seed": 42,
+    "simulator_seed": 2048,
+    "reproducibility": {
+      "timestamp_utc": "2026-10-08T00:55:05.933460+00:00",
+      "git_commit": "822d52ae70a83877b03b4832c57e7cf565dcc725",
+      "git_dirty": false,
+      "python_version": "3.12.6",
+      "qiskit_version": "2.5.2",
+      "qiskit_aer_version": "0.17.2",
+      "qiskit_ibm_runtime_version": "0.50.0"
+    },
+    "seed": 22,
+    "p": 1,
+    "penalty": 2.0,
+    "budget": 51.0,
+    "gammas": [
+      0.6757423677979427
+    ],
+    "betas": [
+      2.7178494983159576
+    ],
+    "max_pauli_weight": null,
+    "requested_shots": 2048,
+    "returned_shots": 2048,
+    "resources": {
+      "compiled_depth": 830,
+      "num_qubits": 156,
+      "operation_counts": {
+        "sx": 510,
+        "rz": 447,
+        "cz": 287,
+        "measure": 6,
+        "barrier": 1
+      },
+      "two_qubit_gate_counts": {
+        "cz": 287
+      },
+      "native_two_qubit_gates": 287
+    },
+    "counts": {
+      "110101": 27,
+      "101011": 38,
+      "000010": 89,
+      "010011": 45,
+      "010010": 71,
+      "100011": 20,
+      "111101": 16,
+      "001100": 46,
+      "010001": 30,
+      "100111": 17,
+      "010111": 62,
+      "001000": 23,
+      "101001": 15,
+      "010100": 45,
+      "010110": 65,
+      "110010": 18,
+      "101110": 35,
+      "000101": 49,
+      "110000": 15,
+      "000111": 121,
+      "110100": 28,
+      "000011": 123,
+      "101100": 33,
+      "101000": 27,
+      "111011": 42,
+      "001110": 19,
+      "100101": 12,
+      "000001": 40,
+      "110110": 13,
+      "101010": 30,
+      "111000": 27,
+      "111001": 13,
+      "001101": 26,
+      "100100": 13,
+      "111100": 31,
+      "110001": 17,
+      "101111": 35,
+      "000110": 89,
+      "010000": 51,
+      "100110": 16,
+      "001111": 27,
+      "111010": 16,
+      "011100": 25,
+      "100000": 14,
+      "010101": 30,
+      "111110": 17,
+      "100010": 12,
+      "001011": 26,
+      "110111": 24,
+      "000000": 58,
+      "110011": 22,
+      "101101": 6,
+      "000100": 73,
+      "001010": 9,
+      "111111": 47,
+      "100001": 6,
+      "001001": 21,
+      "011110": 15,
+      "011111": 17,
+      "011000": 9,
+      "011010": 12,
+      "011001": 6,
+      "011011": 22,
+      "011101": 2
+    },
+    "metrics": {
+      "best_design": "000111",
+      "p_best": 0.05908203125,
+      "p_feasible": 0.50146484375,
+      "p_top3": 0.14306640625,
+      "mean_score_given_feasible": 0.5977267241837739,
+      "random_p_best": 0.06666666666666667,
+      "uniform_p_best": 0.015625,
+      "lift_vs_random_feasible": 0.88623046875,
+      "best_label": "c-Si / Micro-pyramids / Al2O3 (ALD)"
+    },
+    "top_designs": [
+      [
+        "000011",
+        "c-Si / Flat + double-layer ARC / Al2O3 (ALD)",
+        123,
+        true
+      ],
+      [
+        "000111",
+        "c-Si / Micro-pyramids / Al2O3 (ALD)",
+        121,
+        true
+      ],
+      [
+        "000010",
+        "c-Si / Flat + double-layer ARC / SiNx:H (PECVD)",
+        89,
+        true
+      ],
+      [
+        "000110",
+        "c-Si / Micro-pyramids / SiNx:H (PECVD)",
+        89,
+        true
+      ],
+      [
+        "000100",
+        "c-Si / Micro-pyramids / None",
+        73,
+        true
+      ]
+    ]
+  },
+  {
+    "environment": "backend_derived_noisy_simulator",
+    "backend": "ibm_quebec",
+    "transpiler_seed": 42,
+    "simulator_seed": 2059,
+    "reproducibility": {
+      "timestamp_utc": "2026-10-08T00:55:05.933460+00:00",
+      "git_commit": "822d52ae70a83877b03b4832c57e7cf565dcc725",
+      "git_dirty": false,
+      "python_version": "3.12.6",
+      "qiskit_version": "2.5.2",
+      "qiskit_aer_version": "0.17.2",
+      "qiskit_ibm_runtime_version": "0.50.0"
+    },
+    "seed": 33,
+    "p": 1,
+    "penalty": 2.0,
+    "budget": 51.0,
+    "gammas": [
+      0.6757004954709117
+    ],
+    "betas": [
+      2.7178373323725697
+    ],
+    "max_pauli_weight": null,
+    "requested_shots": 2048,
+    "returned_shots": 2048,
+    "resources": {
+      "compiled_depth": 830,
+      "num_qubits": 156,
+      "operation_counts": {
+        "sx": 510,
+        "rz": 447,
+        "cz": 287,
+        "measure": 6,
+        "barrier": 1
+      },
+      "two_qubit_gate_counts": {
+        "cz": 287
+      },
+      "native_two_qubit_gates": 287
+    },
+    "counts": {
+      "101000": 27,
+      "001000": 22,
+      "110000": 15,
+      "000111": 122,
+      "010110": 65,
+      "110010": 18,
+      "101110": 35,
+      "000101": 49,
+      "001100": 45,
+      "111101": 15,
+      "100011": 20,
+      "110100": 29,
+      "101100": 33,
+      "000011": 123,
+      "111011": 43,
+      "001110": 20,
+      "100101": 12,
+      "000001": 40,
+      "110110": 13,
+      "101010": 30,
+      "111000": 27,
+      "111001": 13,
+      "001101": 27,
+      "100100": 13,
+      "111100": 31,
+      "010100": 44,
+      "010010": 72,
+      "110101": 27,
+      "101011": 38,
+      "000010": 88,
+      "110001": 17,
+      "101111": 35,
+      "000110": 89,
+      "010000": 51,
+      "100110": 16,
+      "001111": 28,
+      "111010": 16,
+      "011100": 25,
+      "100000": 14,
+      "010101": 30,
+      "111110": 17,
+      "100010": 12,
+      "001011": 26,
+      "010011": 44,
+      "100111": 16,
+      "110111": 24,
+      "000000": 59,
+      "010001": 30,
+      "110011": 22,
+      "101101": 7,
+      "000100": 73,
+      "001010": 9,
+      "111111": 47,
+      "100001": 6,
+      "101001": 14,
+      "001001": 21,
+      "011110": 15,
+      "010111": 61,
+      "011111": 17,
+      "011000": 9,
+      "011010": 12,
+      "011001": 6,
+      "011011": 22,
+      "011101": 2
+    },
+    "metrics": {
+      "best_design": "000111",
+      "p_best": 0.0595703125,
+      "p_feasible": 0.50048828125,
+      "p_top3": 0.1435546875,
+      "mean_score_given_feasible": 0.5981003944929925,
+      "random_p_best": 0.06666666666666667,
+      "uniform_p_best": 0.015625,
+      "lift_vs_random_feasible": 0.8935546875,
+      "best_label": "c-Si / Micro-pyramids / Al2O3 (ALD)"
+    },
+    "top_designs": [
+      [
+        "000011",
+        "c-Si / Flat + double-layer ARC / Al2O3 (ALD)",
+        123,
+        true
+      ],
+      [
+        "000111",
+        "c-Si / Micro-pyramids / Al2O3 (ALD)",
+        122,
+        true
+      ],
+      [
+        "000110",
+        "c-Si / Micro-pyramids / SiNx:H (PECVD)",
+        89,
+        true
+      ],
+      [
+        "000010",
+        "c-Si / Flat + double-layer ARC / SiNx:H (PECVD)",
+        88,
+        true
+      ],
+      [
+        "000100",
+        "c-Si / Micro-pyramids / None",
+        73,
+        true
+      ]
+    ]
+  }
+]
