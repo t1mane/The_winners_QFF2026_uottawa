@@ -11,6 +11,11 @@ This file handles:
 
 import getpass
 import os
+import platform
+import subprocess
+from datetime import datetime, timezone
+from importlib.metadata import version
+from pathlib import Path
 
 from qiskit.transpiler import generate_preset_pass_manager
 from qiskit_ibm_runtime import QiskitRuntimeService
@@ -85,7 +90,7 @@ def compile_circuit(
 
 def get_resource_metrics(circuit):
     """
-    Collect circuit depth, gate counts and two-qubit gate usage.
+    Collect circuit depth, gate counts and native two-qubit gate usage.
     """
 
     operation_counts = {
@@ -95,13 +100,22 @@ def get_resource_metrics(circuit):
 
     two_qubit_gate_counts = {}
 
+    ignored_operations = {
+        "barrier",
+        "measure",
+        "reset",
+        "delay",
+    }
+
     for instruction in circuit.data:
         operation = instruction.operation
         qubits = instruction.qubits
+        gate_name = operation.name
 
-        if len(qubits) == 2:
-            gate_name = operation.name
-
+        if (
+            len(qubits) == 2
+            and gate_name not in ignored_operations
+        ):
             two_qubit_gate_counts[gate_name] = (
                 two_qubit_gate_counts.get(gate_name, 0) + 1
             )
@@ -118,6 +132,42 @@ def get_resource_metrics(circuit):
         "native_two_qubit_gates": int(total_two_qubit_gates),
     }
 
+def get_reproducibility_metadata():
+    """
+    Record the exact code and software environment used for a run.
+    """
+
+    repo_root = Path(__file__).resolve().parent.parent
+
+    try:
+        git_commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo_root,
+            text=True,
+        ).strip()
+    except Exception:
+        git_commit = None
+
+    try:
+        git_dirty = bool(
+            subprocess.check_output(
+                ["git", "status", "--porcelain"],
+                cwd=repo_root,
+                text=True,
+            ).strip()
+        )
+    except Exception:
+        git_dirty = None
+
+    return {
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "git_commit": git_commit,
+        "git_dirty": git_dirty,
+        "python_version": platform.python_version(),
+        "qiskit_version": version("qiskit"),
+        "qiskit_aer_version": version("qiskit-aer"),
+        "qiskit_ibm_runtime_version": version("qiskit-ibm-runtime"),
+    }
 
 def get_counts(result, pub_index=0):
     """

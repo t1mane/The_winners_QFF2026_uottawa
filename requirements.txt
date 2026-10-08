@@ -1,7 +1,10 @@
-qiskit>=2.0
-qiskit-aer
-qiskit-ibm-runtime
-numpy
-matplotlib
-python-dotenv
-pytest
+qiskit[visualization]==2.5.2
+qiskit-aer==0.17.2
+qiskit-machine-learning==0.9.1
+qiskit-ibm-runtime==0.50.0
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pandas==3.0.6
+pytest==8.4.2

@@ -15,9 +15,7 @@ from pathlib import Path
 
 import numpy as np
 
-from qiskit_ibm_runtime.executor_sampler import (
-    Sampler,
-)
+from qiskit_ibm_runtime.executor_sampler import Sampler
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,51 +37,48 @@ from ibm_backend import (
     compile_circuit,
     get_resource_metrics,
     get_counts,
+    get_reproducibility_metadata,
 )
 
 
 BACKEND_NAME = "ibm_quebec"
-
 SHOTS = 2048
-
 TRANSPILER_SEED = 42
 
-RESULT_DIR = (
-    ROOT
-    / "results"
-    / "raw"
-)
+RESULT_DIR = ROOT / "results" / "raw"
 
 
 def json_converter(obj):
+    """
+    Convert NumPy and other non-standard objects
+    into JSON-serializable values.
+    """
 
-    if isinstance(
-        obj,
-        np.integer,
-    ):
+    if isinstance(obj, np.integer):
         return int(obj)
 
-    if isinstance(
-        obj,
-        np.floating,
-    ):
+    if isinstance(obj, np.floating):
         return float(obj)
 
-    if isinstance(
-        obj,
-        np.ndarray,
-    ):
+    if isinstance(obj, np.ndarray):
         return obj.tolist()
 
     return str(obj)
 
 
 def load_hardware_runs():
+    """
+    Load the three final frozen QAOA parameter sets.
+
+    Final hardware configuration:
+    - penalty M = 2.0
+    - QAOA depth p = 1
+    - seeds = 11, 22, 33
+    """
 
     runs = []
 
     for seed in [11, 22, 33]:
-
         run = load_run(
             penalty=2.0,
             p=1,
@@ -97,6 +92,10 @@ def load_hardware_runs():
 
 
 def submit():
+    """
+    Compile and submit the three final QAOA circuits
+    as one IBM Quantum job.
+    """
 
     hardware_file = (
         ROOT
@@ -105,6 +104,9 @@ def submit():
         / "hardware_params.json"
     )
 
+    # Safety check:
+    # never submit real hardware before the final
+    # frozen parameters are available.
     if not hardware_file.exists():
         raise FileNotFoundError(
             "Missing results/raw/hardware_params.json. "
@@ -112,15 +114,11 @@ def submit():
             "p=1, M=2, seeds 11/22/33 parameters are available."
         )
 
-    print(
-        "Loading frozen QAOA circuits..."
-    )
+    print("Loading frozen QAOA circuits...")
 
     runs = load_hardware_runs()
 
-    print(
-        "Connecting to IBM / PINQ2..."
-    )
+    print("Connecting to IBM / PINQ2...")
 
     service = connect_to_ibm()
 
@@ -138,7 +136,6 @@ def submit():
     circuit_metadata = []
 
     for run in runs:
-
         print()
         print(
             f"Compiling seed {run['seed']}"
@@ -157,16 +154,12 @@ def submit():
 
         print(
             "Depth:",
-            resources[
-                "compiled_depth"
-            ],
+            resources["compiled_depth"],
         )
 
         print(
             "Two-qubit gates:",
-            resources[
-                "native_two_qubit_gates"
-            ],
+            resources["native_two_qubit_gates"],
         )
 
         compiled_circuits.append(
@@ -194,19 +187,18 @@ def submit():
                     run["betas"],
 
                 "max_pauli_weight":
-                    run[
-                        "max_pauli_weight"
-                    ],
+                    run["max_pauli_weight"],
 
                 "resources":
                     resources,
             }
         )
 
+    # Record the exact code/environment BEFORE submission.
+    reproducibility = get_reproducibility_metadata()
+
     print()
-    print(
-        "Submitting three circuits..."
-    )
+    print("Submitting three circuits...")
 
     sampler = Sampler(
         mode=backend
@@ -218,6 +210,7 @@ def submit():
     )
 
     job_id = job.job_id()
+    status = str(job.status())
 
     print()
     print(
@@ -227,7 +220,7 @@ def submit():
 
     print(
         "STATUS:",
-        job.status(),
+        status,
     )
 
     record = {
@@ -235,18 +228,22 @@ def submit():
             job_id,
 
         "status":
-            str(
-                job.status()
-            ),
+            status,
 
         "backend":
             backend.name,
+
+        "execution_mode":
+            "job",
 
         "shots_per_circuit":
             SHOTS,
 
         "transpiler_seed":
             TRANSPILER_SEED,
+
+        "reproducibility":
+            reproducibility,
 
         "circuits":
             circuit_metadata,
@@ -262,11 +259,12 @@ def submit():
         / f"hardware_job_{job_id}.json"
     )
 
+    # Save the job ID and submission metadata immediately.
     with open(
         path,
         "w",
+        encoding="utf-8",
     ) as file:
-
         json.dump(
             record,
             file,
@@ -275,16 +273,11 @@ def submit():
         )
 
     print()
-    print(
-        "Saved submission metadata:"
-    )
-
+    print("Saved submission metadata:")
     print(path)
 
     print()
-    print(
-        "DO NOT resubmit if queued."
-    )
+    print("DO NOT resubmit if queued.")
 
     print(
         "Retrieve later with:"
@@ -297,10 +290,13 @@ def submit():
 
 
 def retrieve(job_id):
+    """
+    Retrieve a previously submitted IBM Quantum job.
 
-    print(
-        "Connecting to IBM / PINQ2..."
-    )
+    This function never submits a new job.
+    """
+
+    print("Connecting to IBM / PINQ2...")
 
     service = connect_to_ibm()
 
@@ -328,7 +324,6 @@ def retrieve(job_id):
     )
 
     if not path.exists():
-
         raise FileNotFoundError(
             f"Missing submission file: {path}"
         )
@@ -336,16 +331,17 @@ def retrieve(job_id):
     with open(
         path,
         "r",
+        encoding="utf-8",
     ) as file:
-
         record = json.load(
             file
         )
 
     record["status"] = status
 
+    # If the job is still queued/running,
+    # update its status without submitting anything new.
     if "DONE" not in status.upper():
-
         print(
             "Job is not finished."
         )
@@ -357,8 +353,8 @@ def retrieve(job_id):
         with open(
             path,
             "w",
+            encoding="utf-8",
         ) as file:
-
             json.dump(
                 record,
                 file,
@@ -379,7 +375,6 @@ def retrieve(job_id):
     for index, run in enumerate(
         runs
     ):
-
         counts = get_counts(
             result,
             pub_index=index,
@@ -409,7 +404,9 @@ def retrieve(job_id):
 
         record[
             "circuits"
-        ][index]["metrics"] = metrics
+        ][index][
+            "metrics"
+        ] = metrics
 
         record[
             "circuits"
@@ -424,8 +421,8 @@ def retrieve(job_id):
     with open(
         path,
         "w",
+        encoding="utf-8",
     ) as file:
-
         json.dump(
             record,
             file,
@@ -442,8 +439,12 @@ def retrieve(job_id):
 
 
 def main():
-
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description=(
+            "Submit or retrieve the final "
+            "QNanoVolt IBM Quantum hardware experiment."
+        )
+    )
 
     group = (
         parser
@@ -455,11 +456,19 @@ def main():
     group.add_argument(
         "--submit",
         action="store_true",
+        help=(
+            "Submit the three final frozen "
+            "QAOA circuits."
+        ),
     )
 
     group.add_argument(
         "--retrieve",
         metavar="JOB_ID",
+        help=(
+            "Retrieve an existing IBM job. "
+            "This does not submit a new job."
+        ),
     )
 
     args = parser.parse_args()
