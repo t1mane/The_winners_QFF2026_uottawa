@@ -36,6 +36,7 @@ from ibm_backend import (
     get_backend,
     compile_circuit,
     get_resource_metrics,
+    get_reproducibility_metadata,
 )
 
 
@@ -55,23 +56,17 @@ SIMULATOR_SEED = 2026
 
 
 def json_converter(obj):
+    """
+    Convert NumPy objects into JSON-serializable values.
+    """
 
-    if isinstance(
-        obj,
-        np.integer,
-    ):
+    if isinstance(obj, np.integer):
         return int(obj)
 
-    if isinstance(
-        obj,
-        np.floating,
-    ):
+    if isinstance(obj, np.floating):
         return float(obj)
 
-    if isinstance(
-        obj,
-        np.ndarray,
-    ):
+    if isinstance(obj, np.ndarray):
         return obj.tolist()
 
     raise TypeError(
@@ -80,8 +75,18 @@ def json_converter(obj):
 
 
 def main(test_mode=False):
-    if not test_mode:
+    """
+    Run either:
 
+    - a small 256-shot validation test, or
+    - the three final 2048-shot noisy simulations.
+    """
+
+    # -------------------------------------------------
+    # SAFETY CHECK FOR FINAL RUNS
+    # -------------------------------------------------
+
+    if not test_mode:
         hardware_file = (
             ROOT
             / "results"
@@ -96,6 +101,9 @@ def main(test_mode=False):
                 "parameters before running the final noisy simulation."
             )
 
+    # -------------------------------------------------
+    # IBM BACKEND CONNECTION
+    # -------------------------------------------------
 
     print(
         "Connecting to PINQ2 / IBM..."
@@ -114,8 +122,7 @@ def main(test_mode=False):
     )
 
     print(
-        "Creating backend-derived "
-        "noise simulator..."
+        "Creating backend-derived noise simulator..."
     )
 
     simulator = AerSimulator.from_backend(
@@ -123,12 +130,11 @@ def main(test_mode=False):
         method="matrix_product_state",
     )
 
-    # ---------------------------------------------
+    # -------------------------------------------------
     # TEST MODE
-    # ---------------------------------------------
+    # -------------------------------------------------
 
     if test_mode:
-
         configurations = [
             {
                 "seed": 42,
@@ -146,12 +152,11 @@ def main(test_mode=False):
             / "noisy_test.json"
         )
 
-    # ---------------------------------------------
+    # -------------------------------------------------
     # FINAL HARDWARE-MATCHED RUNS
-    # ---------------------------------------------
+    # -------------------------------------------------
 
     else:
-
         configurations = [
             {
                 "seed": 11,
@@ -178,10 +183,16 @@ def main(test_mode=False):
 
         output_file = OUTPUT_FILE
 
+    # Record the exact code/software environment used.
+    reproducibility = get_reproducibility_metadata()
+
     saved_results = []
 
-    for config in configurations:
+    # -------------------------------------------------
+    # RUN CONFIGURATIONS
+    # -------------------------------------------------
 
+    for config in configurations:
         seed = config["seed"]
 
         print()
@@ -217,6 +228,8 @@ def main(test_mode=False):
             run["max_pauli_weight"],
         )
 
+        # Compile using the same IBM backend
+        # and transpiler policy as the hardware run.
         compiled = compile_circuit(
             circuit,
             backend,
@@ -240,13 +253,15 @@ def main(test_mode=False):
             ],
         )
 
+        simulator_seed = (
+            SIMULATOR_SEED
+            + seed
+        )
+
         job = simulator.run(
             compiled,
             shots=config["shots"],
-            seed_simulator=(
-                SIMULATOR_SEED
-                + seed
-            ),
+            seed_simulator=simulator_seed,
         )
 
         result = job.result()
@@ -263,9 +278,13 @@ def main(test_mode=False):
             run,
         )
 
+        returned_shots = sum(
+            counts.values()
+        )
+
         print(
             "Returned shots:",
-            sum(counts.values()),
+            returned_shots,
         )
 
         print(
@@ -288,6 +307,15 @@ def main(test_mode=False):
                 "backend":
                     backend.name,
 
+                "transpiler_seed":
+                    TRANSPILER_SEED,
+
+                "simulator_seed":
+                    simulator_seed,
+
+                "reproducibility":
+                    reproducibility,
+
                 "seed":
                     seed,
 
@@ -307,17 +335,13 @@ def main(test_mode=False):
                     run["betas"],
 
                 "max_pauli_weight":
-                    run[
-                        "max_pauli_weight"
-                    ],
+                    run["max_pauli_weight"],
 
                 "requested_shots":
                     config["shots"],
 
                 "returned_shots":
-                    sum(
-                        counts.values()
-                    ),
+                    returned_shots,
 
                 "resources":
                     resources,
@@ -333,6 +357,10 @@ def main(test_mode=False):
             }
         )
 
+    # -------------------------------------------------
+    # SAVE RESULTS
+    # -------------------------------------------------
+
     output_file.parent.mkdir(
         parents=True,
         exist_ok=True,
@@ -341,8 +369,8 @@ def main(test_mode=False):
     with open(
         output_file,
         "w",
+        encoding="utf-8",
     ) as file:
-
         json.dump(
             saved_results,
             file,
@@ -363,15 +391,19 @@ def main(test_mode=False):
 
 
 if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description=(
+            "Run backend-derived noisy simulations "
+            "for the QNanoVolt QAOA circuits."
+        )
+    )
 
     parser.add_argument(
         "--test",
         action="store_true",
         help=(
-            "Run one small noisy simulation "
-            "using existing seed-42 parameters."
+            "Run one small 256-shot noisy simulation "
+            "using the existing seed-42 parameters."
         ),
     )
 
