@@ -10,8 +10,8 @@ run_script() {
 }
 run_script experiments/run_exact.py
 run_script experiments/run_sim_sweep.py
-# Needs an IBM token (noise model): only when asked, e.g.  RUN_IBM=1 ./run_all.sh
+
 if [ -n "$RUN_IBM" ]; then run_script experiments/run_noisy_sim.py; fi
-# Real hardware is never run here. Do it by hand: python experiments/run_hardware.py --submit
+
 run_script src/plotting.py
 echo "=== Pipeline execution completed! ==="
