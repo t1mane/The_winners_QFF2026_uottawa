@@ -1,0 +1,103 @@
+{
+  "job_id": "db3emqimb58s7387jtug",
+  "status": "QUEUED",
+  "backend": "ibm_quebec",
+  "execution_mode": "job",
+  "shots_per_circuit": 2048,
+  "transpiler_seed": 42,
+  "reproducibility": {
+    "timestamp_utc": "2026-10-08T01:01:29.394823+00:00",
+    "git_commit": "3310a1c1a0ee81cb1bd97f5a56331f752d1834ee",
+    "git_dirty": false,
+    "python_version": "3.12.6",
+    "qiskit_version": "2.5.2",
+    "qiskit_aer_version": "0.17.2",
+    "qiskit_ibm_runtime_version": "0.50.0"
+  },
+  "circuits": [
+    {
+      "seed": 11,
+      "p": 1,
+      "penalty": 2.0,
+      "budget": 51.0,
+      "gammas": [
+        0.6757388016099228
+      ],
+      "betas": [
+        2.7178504928758938
+      ],
+      "max_pauli_weight": null,
+      "resources": {
+        "compiled_depth": 830,
+        "num_qubits": 156,
+        "operation_counts": {
+          "sx": 510,
+          "rz": 447,
+          "cz": 287,
+          "measure": 6,
+          "barrier": 1
+        },
+        "two_qubit_gate_counts": {
+          "cz": 287
+        },
+        "native_two_qubit_gates": 287
+      }
+    },
+    {
+      "seed": 22,
+      "p": 1,
+      "penalty": 2.0,
+      "budget": 51.0,
+      "gammas": [
+        0.6757423677979427
+      ],
+      "betas": [
+        2.7178494983159576
+      ],
+      "max_pauli_weight": null,
+      "resources": {
+        "compiled_depth": 830,
+        "num_qubits": 156,
+        "operation_counts": {
+          "sx": 510,
+          "rz": 447,
+          "cz": 287,
+          "measure": 6,
+          "barrier": 1
+        },
+        "two_qubit_gate_counts": {
+          "cz": 287
+        },
+        "native_two_qubit_gates": 287
+      }
+    },
+    {
+      "seed": 33,
+      "p": 1,
+      "penalty": 2.0,
+      "budget": 51.0,
+      "gammas": [
+        0.6757004954709117
+      ],
+      "betas": [
+        2.7178373323725697
+      ],
+      "max_pauli_weight": null,
+      "resources": {
+        "compiled_depth": 830,
+        "num_qubits": 156,
+        "operation_counts": {
+          "sx": 510,
+          "rz": 447,
+          "cz": 287,
+          "measure": 6,
+          "barrier": 1
+        },
+        "two_qubit_gate_counts": {
+          "cz": 287
+        },
+        "native_two_qubit_gates": 287
+      }
+    }
+  ]
+}
